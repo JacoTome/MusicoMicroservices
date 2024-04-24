@@ -1,0 +1,6 @@
+[submodule "auth-service"]
+	path = auth-service
+	url = https://github.com/JacoTome/auth-service.git
+[submodule "databases-service"]
+	path = databases-service
+	url = https://github.com/JacoTome/databases-service.git
