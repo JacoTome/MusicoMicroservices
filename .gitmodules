@@ -4,3 +4,6 @@
 [submodule "databases-service"]
 	path = databases-service
 	url = https://github.com/JacoTome/databases-service.git
+[submodule "eureka-service"]
+	path = eureka-service
+	url = https://github.com/JacoTome/eureka-service.git
