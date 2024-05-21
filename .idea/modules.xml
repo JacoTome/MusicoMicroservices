@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/MusicoMicroservices.iml" filepath="$PROJECT_DIR$/.idea/MusicoMicroservices.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/databases-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/databases-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/625114430/databases-service.user-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/625114430/databases-service.user-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/eureka-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/eureka-service.main.iml" />
+    </modules>
+  </component>
+</project>
