@@ -10,3 +10,6 @@
 [submodule "gateway-service"]
 	path = gateway-service
 	url = https://github.com/JacoTome/gateway-service.git
+[submodule "essentia-service"]
+	path = essentia-service
+	url = https://github.com/JacoTome/essentia-service
