@@ -17,3 +17,7 @@
 [submodule "eureka-service"]
 	path = eureka-service
 	url = https://github.com/JacoTome/eureka-service.git
+
+[submodule "essentia-service"]
+	path = essentia-service
+	url = https://github.com/JacoTome/essentia-service.git
