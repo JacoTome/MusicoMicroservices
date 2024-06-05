@@ -1,5 +1,7 @@
 data/
 .idea/
+.vscode/
+essentiajs-service/node_modules/
 
 # Compiled class file
 *.class
