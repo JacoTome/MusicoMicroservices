@@ -3,6 +3,7 @@ const eureka = require("eureka-js-client").Eureka;
 const express = require("express");
 const multer = require("multer");
 
+const bodyParser = require("body-parser");
 const { Essentia, EssentiaWASM, EssentiaModel } = require("essentia.js");
 const essentia = new Essentia(EssentiaWASM);
 
@@ -27,7 +28,17 @@ const storage = multer.diskStorage({
 		cb(null, file.originalname);
 	},
 });
-const upload = multer({ storage: storage });
+const upload = multer({
+	storage: storage,
+	fileFilter: function (req, file, cb) {
+		if (!file.originalname.match(/\.(mp3|wav)$/)) {
+			return cb(new Error("Only audio files are allowed!"), false);
+		} else {
+			console.table(file);
+		}
+		cb(null, true);
+	},
+});
 
 const client = new eureka({
 	instance: {
@@ -53,17 +64,18 @@ const client = new eureka({
 		servicePath: "/eureka/apps/",
 	},
 });
+
 /**
  * Analysis Funtion
  */
-function analyze(rawdata) {
+function analyze(rawdata, userName, path) {
 	var result = {};
 	const buffer = Buffer.concat(rawdata);
 	console.log("Analyzing audio");
 	const encoder = new Lame({
 		output: "buffer",
 		raw: true,
-	}).setBuffer(buffer);
+	}).setFile(path);
 	encoder
 		.encode()
 		.then(() => {
@@ -73,6 +85,7 @@ function analyze(rawdata) {
 			let bpm = essentia.RhythmExtractor(audioVector).bpm;
 			let danceability = essentia.Danceability(audioVector).danceability;
 			result = {
+				user: userName.split(".")[0],
 				beats: beats ? beats.bpm : "120",
 				danceability: danceability,
 			};
@@ -103,15 +116,12 @@ function analyze(rawdata) {
 app.get("/info", (req, res) => {
 	res.send("Essentia.js service is running");
 });
-app.post("/audio/audio_analysis", (req, res) => {
+app.post("/audio/audio_analysis", upload.single("file"), (req, res) => {
 	let audioData = [];
-	req.on("data", (chunk) => {
-		audioData.push(chunk);
-	});
-	req.on("end", () => {
-		analyze(audioData);
-		res.status(200).send("Audio analysis completed");
-	});
+
+	console.table(req.file);
+	analyze(audioData, req.file.originalname, req.file.path);
+	res.send("Audio analysis started");
 });
 app.listen(port, () => {
 	console.log(`Essentia.js service is running on http://localhost:${port}`);
